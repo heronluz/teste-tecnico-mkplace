@@ -1,12 +1,13 @@
 import Image from "next/image";
+import { Key } from "react";
 
 
 export function ListItens() {
 
-    function renderItens() {
+    function renderItens(i: Key | null | undefined) {
         return (
 
-            <div className="w-full flex gap-4">
+            <div key={i} className="w-full flex gap-4">
                 <div className="w-full flex justify-start items-center gap-4">
                     <input type="checkbox" className="w-6 h-6 rounded-md border border-black accent-gray-300/70" />
                     <label className="text-sm font-bold">Milho verde</label>
