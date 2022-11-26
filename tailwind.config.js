@@ -20,7 +20,8 @@ module.exports = {
         },
         red: {
           100: '#F89797',
-          300: '#ED1B49',
+          200: '#F45252',
+          300: '#ED1B49'
         }
       },
       borderRadius: {

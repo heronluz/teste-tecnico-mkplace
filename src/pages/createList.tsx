@@ -7,11 +7,15 @@ import IconUpload from '../assets/IconsUpload.svg'
 import { useState } from "react";
 
 import { SaveList } from "../components/saveList";
+import Modal from "../components/Modal";
+import Link from "next/link";
 
 function CreateList() {
 
     const [quantValue, setValue] = useState(1);
     const [saveListItens, setSaveListItens] = useState(true)
+    const [modal, setModal] = useState(false)
+
 
     function stepDown(event: { preventDefault: () => void; }) {
         event.preventDefault()
@@ -28,14 +32,29 @@ function CreateList() {
         setValue(num);
     }
 
+    const showCloseModal = (childData: boolean | ((prevState: boolean) => boolean)) => {
+
+        setModal(childData)
+
+    }
+
     return (
 
         <div className="max-w-full lg:max-w-[1124px] h-auto lg:h-screen mx-auto px-4 lg:py-5 lg:p-14 flex flex-col lg:justify-center lg:items-center">
-            <div style={{zIndex:'999'}} className="fixed lg:relative w-full h-20 mb-8 lg:mb-12 flex items-center bg-white lg:bg-transparent ">
+
+            {/* MODAL DE ALERT */}
+            {modal ?
+                < Modal sModal={showCloseModal} />
+                :
+                null
+            }
+
+            <div style={{ zIndex: '20' }} className="fixed lg:relative w-full h-20 mb-8 lg:mb-12 flex items-center bg-white lg:bg-transparent ">
                 <div className="hidden lg:block lg:mr-6">
                     <Image src={IconLogo} alt="" />
                 </div>
-                <div>
+
+                <div onClick={() => setModal(true)}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 lg:w-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
@@ -48,10 +67,10 @@ function CreateList() {
             </div>
 
             <div className="mt-20 lg:mt-0 w-full h-full mx-auto flex">
-                <div className=" mt-[1px] lg:mt-0 max-h-full w-full lg:max-h-[589px] lg:w-[302px] flex flex-col gap-2">
+                <div className="mt-[1px] lg:mt-0 max-h-full w-full lg:max-h-[589px] lg:w-[302px] flex flex-col gap-2">
                     <div className="mb-[152px] lg:mb-0 lg:mr-4 overflow-y-auto py-3 px-3.5 flex flex-col gap-2 border rounded-lg border-gray-300 mix-blend-normal border-opacity-60">
 
-                        <div style={{zIndex:'10'}} className='flex items-center gap-3' >
+                        <div style={{ zIndex: '10' }} className='flex items-center gap-3' >
                             <div className="w-12 h-12 flex justify-center bg-gray-400 rounded-lg bg-opacity-70">
                                 <Image src={PaperImg} alt="" />
                             </div>
@@ -71,12 +90,7 @@ function CreateList() {
                             ?
                             <div className="pt-2 flex flex-col gap-2 lg:gap-4 w-full border-t border-gray-300 mix-blend-normal border-opacity-40">
                                 <SaveList />
-                                <SaveList />
-                                <SaveList />
-                                <SaveList />
-                                <SaveList />
-                                <SaveList />                                                         
-                              
+
                             </div>
                             :
                             <></>
@@ -88,12 +102,12 @@ function CreateList() {
 
                     {saveListItens
                         ?
-                        <div className="fixed lg:relative w-full pr-8 lg:pr-0 bottom-0 bg-white lg:bg-transparent py-6 lg:py-0 lg:mr-4 flex flex-col gap-3 lg:pt-3">
+                        <div className="fixed lg:relative w-full pr-8 bottom-0 bg-white lg:bg-transparent py-6 lg:py-0 lg:pr-4 lg:mr-4 flex flex-col gap-3 lg:pt-3">
 
                             <button type="submit" className="lg:hidden w-full bg-gray-70 px-6 py-3 rounded-[8px] text-[#FF0000] font-bold text-sm leading-[21px] border border-red-300 lg:hover:bg-gray-200">Adicionar novo item</button>
 
-                            <button type="submit" className="w-full bg-[#F45252] px-6 py-3 rounded-[8px] text-white font-bold text-sm lg:hover:bg-[#dc3434]">Concluir Lista</button>
-                            
+                            <button type="submit" className="w-full bg-[#F45252] px-6 py-3 rounded-[8px] text-white font-bold text-sm hover:bg-[#dc3434] lg:bg-gray-70   lg:text-[#FF0000] lg:leading-[21px] lg:border lg:border-red-300 lg:hover:bg-gray-200">Concluir Lista</button>
+
                         </div>
                         :
                         <></>
@@ -105,7 +119,7 @@ function CreateList() {
                     <Image src={IconList} alt="" />
                 </div>
 
-                <form className="hidden w-full lg:w-[676px] h-full lg:h-[589px] lg:ml-8 lg:p-6 lg:flex flex-col items-start gap-4 lg:gap-4 lg:border lg:rounded-2xl border-gray-300 mix-blend-normal border-opacity-60">
+                <form className="hidden w-full lg:w-[676px] h-full lg:h-[589px] lg:ml-8 lg:p-6 lg:flex flex-col items-start gap-4 lg:border lg:rounded-2xl border-gray-300 mix-blend-normal border-opacity-60">
                     <div className="flex flex-col w-full">
                         <label className="text-xs mb-[6px] font-medium lg:font-semibold lg:leading-[18px]">Selecione a categoria do produto</label>
                         <select defaultValue="" className="appearance-none text-xs lg:text-sm text-gray-400 bg-arrowDown bg-no-repeat bg-origin-content bg-right w-full px-5 h-12 border rounded-[8px] border-gray-300 mix-blend-normal border-opacity-60">

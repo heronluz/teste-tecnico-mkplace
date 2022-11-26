@@ -4,6 +4,7 @@ import logoImg from '../assets/logo-mkplace.svg'
 import PaperImg from '../assets/PaperList.svg'
 import IconList from '../assets/Icon.svg'
 import CloseIcon from '../assets/closeIcon.svg'
+import Link from "next/link";
 
 
 
@@ -41,15 +42,17 @@ function Home(props: HomeProps) {
 
         </div>
 
-        <div className='mt-2 md:mt-3 lg:mt-4 py-1 md:py-2 lg:py-3 px-1.5 md:px-2.5 lg:px-3.5 flex items-center gap-1 md:gap-2 lg:gap-3 border rounded-lg bg-gray-100 border-red-300 border-opacity-60 bg-opacity-60 mix-blend-normal' >
+        <Link href={"/createList"}>
+          <div className='mt-2 md:mt-3 lg:mt-4 py-1 md:py-2 lg:py-3 px-1.5 md:px-2.5 lg:px-3.5 flex items-center gap-1 md:gap-2 lg:gap-3 border rounded-lg bg-gray-100 border-red-300 border-opacity-60 bg-opacity-60 mix-blend-normal' >
 
-          <div className="w-10 md:w-11 lg:w-12 h-10 md:h-11 lg:h-12 flex justify-center items-center bg-red-100 rounded-lg bg-opacity-40">
-            <Image src={CloseIcon} alt="" />
+            <div className="w-10 md:w-11 lg:w-12 h-10 md:h-11 lg:h-12 flex justify-center items-center bg-red-100 rounded-lg bg-opacity-40">
+              <Image src={CloseIcon} alt="" />
+            </div>
+            <strong className='text-red-300 text-sm '>
+              <span>Criar uma lista de compras</span>
+            </strong>
           </div>
-          <strong className='text-red-300 text-sm '>
-            <span>Criar um lista de compras</span>
-          </strong>
-        </div>
+        </Link>
 
 
       </main>
