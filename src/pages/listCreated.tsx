@@ -9,25 +9,10 @@ import { useState } from "react";
 import { ListItens } from "../components/listItens";
 import Link from "next/link";
 
-function CreateList() {
+function CreateList(id: string) {
 
     const [quantValue, setValue] = useState(1);
     const [saveListItens, setSaveListItens] = useState(false)
-
-    function stepDown(event: { preventDefault: () => void; }) {
-        event.preventDefault()
-        let num = quantValue - 1
-        if (num < 0) {
-            setValue(0);
-        } else { setValue(num) };
-
-    }
-
-    function stepUp(event: { preventDefault: () => void; }) {
-        event.preventDefault()
-        let num = quantValue + 1
-        setValue(num);
-    }
 
     return (
 
@@ -92,12 +77,9 @@ function CreateList() {
                     <Image src={IconList} alt="" />
                 </div>
 
-                <div className="mb-20 lg:mb-0 mt-28 lg:mt-0 lg:w-[462px] lg:max-h-[589px] lg:ml-8 lg:p-6 flex flex-col items-start gap-5 overflow-x-hidden lg:border lg:rounded-2xl border-gray-300 mix-blend-normal border-opacity-60">
 
-                    <ListItens />
-                    <ListItens />
+                <ListItens idLista={id} />
 
-                </div>
 
             </div>
         </div >

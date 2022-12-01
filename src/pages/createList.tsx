@@ -8,6 +8,11 @@ import { useState } from "react";
 
 import { SaveList } from "../components/saveList";
 import Modal from "../components/Modal";
+import SelectCategory from "../components/selectCategory";
+import SelectSubCategory from "../components/selectSubCategory";
+import AutoCompleteProducts from "../components/autoCompleteProducts";
+
+
 import Link from "next/link";
 
 function CreateList() {
@@ -15,7 +20,7 @@ function CreateList() {
     const [quantValue, setValue] = useState(1);
     const [saveListItens, setSaveListItens] = useState(true)
     const [modal, setModal] = useState(false)
-
+    const [category, setCategory] = useState("")
 
     function stepDown(event: { preventDefault: () => void; }) {
         event.preventDefault()
@@ -35,6 +40,12 @@ function CreateList() {
     const showCloseModal = (childData: boolean | ((prevState: boolean) => boolean)) => {
 
         setModal(childData)
+
+    }
+
+    const setSubCategory = (valCategory: any) => {
+
+        setCategory(valCategory)
 
     }
 
@@ -120,30 +131,12 @@ function CreateList() {
                 </div>
 
                 <form className="hidden w-full lg:w-[676px] h-full lg:h-[589px] lg:ml-8 lg:p-6 lg:flex flex-col items-start gap-4 lg:border lg:rounded-2xl border-gray-300 mix-blend-normal border-opacity-60">
-                    <div className="flex flex-col w-full">
-                        <label className="text-xs mb-[6px] font-medium lg:font-semibold lg:leading-[18px]">Selecione a categoria do produto</label>
-                        <select defaultValue="" className="appearance-none text-xs lg:text-sm text-gray-400 bg-arrowDown bg-no-repeat bg-origin-content bg-right w-full px-5 h-12 border rounded-[8px] border-gray-300 mix-blend-normal border-opacity-60">
-                            <option hidden >Pesquise por uma categoria. Ex. Enlatados</option>
-                            <option>First option</option>
-                            <option>second option</option>
-                            <option>Thrid option</option>
-                        </select>
-                    </div>
+                    <SelectCategory sCategory={setSubCategory} />
 
-                    <div className="flex flex-col w-full">
-                        <label className="text-xs mb-[6px] font-medium lg:font-semibold lg:leading-[18px]">Selecione uma subcategoria do produto</label>
-                        <select defaultValue="" className="appearance-none text-xs lg:text-sm text-gray-400 bg-arrowDown bg-no-repeat bg-origin-content bg-right w-full px-5 h-12 border rounded-[8px] border-gray-300 mix-blend-normal border-opacity-60">
-                            <option hidden >Pesquise por uma categoria. Ex. Conservantes</option>
-                            <option>First option</option>
-                            <option>second option</option>
-                            <option>Thrid option</option>
-                        </select>
-                    </div>
+                    <SelectSubCategory sCategory={category} />
 
-                    <div className="flex flex-col w-full">
-                        <label className="text-xs mb-[6px] font-medium lg:font-semibold lg:leading-[18px]">Nome do produto</label>
-                        <input type="text" placeholder="e.g Milho verde em conserva" className=" placeholder-gray-400 text-xs lg:text-sm w-full px-5 h-12 border rounded-[8px] border-gray-300 mix-blend-normal border-opacity-60" />
-                    </div>
+                    <AutoCompleteProducts />
+
 
                     <div className="flex flex-col lg:flex-row gap-4 w-full border-t border-gray-300 mix-blend-normal border-opacity-60">
 

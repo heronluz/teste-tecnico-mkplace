@@ -1,8 +1,34 @@
-import Image from "next/image";
-import { Key } from "react";
+import { Key, useEffect, useState } from "react";
 
 
-export function ListItens() {
+export function ListItens({ idLista }: any) {
+
+    const [dataList, setDataList] = useState([]);
+    const getList = async () => {
+        const response = await fetch('/api/list');
+        const values = await response.json();
+        setDataList(values)
+        //setContCategorys(products)
+    }
+
+    useEffect(() => {
+
+        getList();
+
+    },[])
+
+    function stepDown(name: string) {
+        let quantity = (document.getElementById("quantity" + name) as HTMLInputElement);
+        if (quantity.value <= "1") {
+            quantity.value = "0";
+        } else { quantity.value = (parseInt(quantity.value) - 1).toString() };
+
+    }
+
+    function stepUp(name: string) {
+        let quantity = (document.getElementById("quantity" + name) as HTMLInputElement);
+        quantity.value = (parseInt(quantity.value) + 1).toString();
+    }
 
     function renderItens(i: Key | null | undefined) {
         return (
@@ -36,15 +62,19 @@ export function ListItens() {
     }
 
     let listItens = []
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
         listItens.push(i)
     }
     return (
-        <>
+
+        <div className="mb-20 lg:mb-0 mt-28 lg:mt-0 lg:w-[462px] lg:max-h-[589px] lg:ml-8 lg:p-6 flex flex-col items-start gap-5 overflow-x-hidden lg:border lg:rounded-2xl border-gray-300 mix-blend-normal border-opacity-60">
+
             <label className="text-xs leading-[14px]">Enlatados</label>
             <div className="w-full flex flex-col gap-2">
                 {listItens.map(renderItens)}
             </div>
-        </>
+
+        </div>
+
     );
 }
